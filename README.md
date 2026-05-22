@@ -37,6 +37,10 @@ npm run preview
 
 开发服务器默认运行在 `http://localhost:5173`。
 
+## 在线访问
+
+[https://earthonline.wg174152.workers.dev/](https://earthonline.wg174152.workers.dev/)
+
 ## 项目结构
 
 ```
