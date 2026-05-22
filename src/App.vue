@@ -24,6 +24,7 @@
       <SystemNotice v-else-if="activeTemplate === 'notice'" ref="noticeRef" />
       <PlayerLog v-else-if="activeTemplate === 'log'" ref="logRef" />
       <GuideTemplate v-else-if="activeTemplate === 'guide'" ref="guideRef" />
+      <AchievementBoard v-else-if="activeTemplate === 'achievement'" ref="achievementRef" />
     </div>
 
     <div class="action-bar">
@@ -42,6 +43,7 @@
           <a :href="previewUrl" :download="getDownloadFilename()" class="download-link">📥 下载图片</a>
         </div>
       </div>
+    <ThemeSwitcher />
   </div>
 </template>
 
@@ -51,12 +53,15 @@ import ReviewCard from './components/ReviewCard.vue'
 import SystemNotice from './components/SystemNotice.vue'
 import PlayerLog from './components/PlayerLog.vue'
 import GuideTemplate from './components/GuideTemplate.vue'
+import AchievementBoard from './components/AchievementBoard.vue'
+import ThemeSwitcher from './components/ThemeSwitcher.vue'
 
 const templates = [
   { id: 'review', icon: '⭐', label: '评价卡片', desc: '五星打分·热梗评价' },
   { id: 'notice', icon: '📢', label: '系统公告', desc: '热点通报·副本速报' },
   { id: 'log', icon: '📋', label: '玩家日志', desc: '日常记录·状态面板' },
   { id: 'guide', icon: '📖', label: '新手攻略', desc: '步骤攻略·奖励清单' },
+  { id: 'achievement', icon: '🏆', label: '成就展板', desc: '成就徽章·里程碑' },
 ]
 
 const activeTemplate = ref('review')
@@ -64,10 +69,11 @@ const reviewRef = ref(null)
 const noticeRef = ref(null)
 const logRef = ref(null)
 const guideRef = ref(null)
+const achievementRef = ref(null)
 const previewUrl = ref(null)
 
 function getActiveComponent() {
-  const map = { review: reviewRef, notice: noticeRef, log: logRef, guide: guideRef }
+  const map = { review: reviewRef, notice: noticeRef, log: logRef, guide: guideRef, achievement: achievementRef }
   return map[activeTemplate.value]
 }
 
@@ -87,6 +93,7 @@ const templateLabelMap = {
   notice: '系统公告',
   log: '玩家日志',
   guide: '新手攻略',
+  achievement: '成就展板',
 }
 
 function getDownloadFilename() {
@@ -139,9 +146,9 @@ async function previewImage() {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background: linear-gradient(135deg, var(--bg-body), var(--bg-body-mid), var(--bg-body-end));
   min-height: 100vh;
-  color: #e0e0e0;
+  color: var(--text-primary);
 }
 
 .app {
@@ -157,7 +164,7 @@ body {
 
 .header-top h1 {
   font-size: 2.8rem;
-  background: linear-gradient(135deg, #00d2ff, #3a7bd5, #8e2de2);
+  background: linear-gradient(135deg, var(--title-from), var(--title-mid), var(--title-to));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -165,7 +172,7 @@ body {
 }
 
 .header-subtitle {
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.85rem;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -186,26 +193,26 @@ body {
   gap: 4px;
   padding: 14px 24px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
-  color: #888;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-bg);
+  color: var(--text-muted);
   cursor: pointer;
   transition: all 0.25s;
   min-width: 130px;
 }
 
 .nav-btn:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.15);
-  color: #ccc;
+  background: var(--surface-hover);
+  border-color: var(--input-border);
+  color: var(--text-secondary);
   transform: translateY(-2px);
 }
 
 .nav-btn.active {
-  background: linear-gradient(135deg, rgba(58,123,213,0.2), rgba(0,210,255,0.1));
-  border-color: #3a7bd5;
-  color: #e0e0e0;
-  box-shadow: 0 4px 20px rgba(58,123,213,0.15);
+  background: var(--nav-active-bg);
+  border-color: var(--nav-active-border);
+  color: var(--text-primary);
+  box-shadow: 0 4px 20px var(--nav-active-shadow);
 }
 
 .nav-icon {
@@ -224,11 +231,11 @@ body {
 }
 
 .main-container {
-  background: rgba(255,255,255,0.03);
+  background: var(--surface-bg);
   border-radius: 18px;
   padding: 28px;
   margin-top: 20px;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid var(--surface-border);
   min-height: 400px;
 }
 
@@ -251,30 +258,30 @@ body {
 }
 
 .generate-btn {
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  background: linear-gradient(135deg, var(--btn-primary-from), var(--btn-primary-to));
   color: white;
 }
 
 .generate-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(58,123,213,0.4);
+  box-shadow: 0 8px 25px rgba(var(--accent-rgb),0.4);
 }
 
 .preview-btn {
-  background: rgba(255,255,255,0.06);
-  color: #aaa;
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-color);
+  border: 1px solid var(--btn-secondary-border);
 }
 
 .preview-btn:hover {
-  background: rgba(255,255,255,0.1);
-  color: #e0e0e0;
+  background: var(--surface-hover);
+  color: var(--text-primary);
 }
 
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
+  background: var(--overlay-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -313,13 +320,13 @@ body {
   max-width: 100%;
   max-height: 80vh;
   border-radius: 12px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 40px var(--card-shadow);
 }
 
 .download-link {
   padding: 10px 28px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  background: linear-gradient(135deg, var(--btn-primary-from), var(--btn-primary-to));
   color: white;
   text-decoration: none;
   font-weight: 600;
@@ -329,7 +336,7 @@ body {
 
 .download-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(58,123,213,0.4);
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb),0.4);
 }
 
 @media (max-width: 900px) {

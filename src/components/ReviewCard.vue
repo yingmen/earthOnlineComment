@@ -152,7 +152,7 @@ defineExpose({ cardRef })
 .preview-section { flex: 1; }
 .preview-title {
   margin-bottom: 16px;
-  color: #aaa;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -162,7 +162,7 @@ defineExpose({ cardRef })
   display: block;
   margin-bottom: 8px;
   font-size: 0.9rem;
-  color: #aaa;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 .tag-manager {
@@ -178,20 +178,20 @@ defineExpose({ cardRef })
   flex: 1;
   padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.05);
-  color: #e0e0e0;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-primary);
   font-size: 0.85rem;
   outline: none;
   transition: border-color 0.2s;
 }
-.tag-input:focus { border-color: #3a7bd5; }
-.tag-input::placeholder { color: #666; }
+.tag-input:focus { border-color: var(--input-focus); }
+.tag-input::placeholder { color: var(--input-placeholder); }
 .tag-add-btn {
   padding: 8px 16px;
   border-radius: 8px;
   border: none;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  background: linear-gradient(135deg, var(--btn-primary-from), var(--btn-primary-to));
   color: white;
   font-size: 0.85rem;
   font-weight: 600;
@@ -210,17 +210,17 @@ defineExpose({ cardRef })
   border-radius: 20px;
   font-size: 0.8rem;
   cursor: pointer;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--card-inner-bg);
+  border: 1px solid var(--card-inner-border);
   transition: all 0.2s;
   user-select: none;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
-.tag-item:hover { background: rgba(58,123,213,0.2); border-color: rgba(58,123,213,0.4); }
+.tag-item:hover { background: var(--tag-bg); border-color: var(--tag-border); }
 .tag-item.active {
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  background: linear-gradient(135deg, var(--btn-primary-from), var(--btn-primary-to));
   border-color: transparent;
   color: white;
   font-weight: 600;
@@ -245,61 +245,61 @@ defineExpose({ cardRef })
 .star {
   font-size: 2rem;
   cursor: pointer;
-  color: #333;
+  color: var(--review-star-empty);
   transition: all 0.15s;
 }
-.star.filled { color: #ffc107; text-shadow: 0 0 10px rgba(255,193,7,0.4); }
+.star.filled { color: var(--star-color); text-shadow: 0 0 10px var(--star-glow); }
 .star:hover { transform: scale(1.2); }
-.rating-text { margin-left: 12px; font-size: 0.95rem; color: #ffc107; font-weight: 600; }
+.rating-text { margin-left: 12px; font-size: 0.95rem; color: var(--star-color); font-weight: 600; }
 .text-input {
   width: 100%;
   padding: 10px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.05);
-  color: #e0e0e0;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-primary);
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s;
 }
-.text-input:focus { border-color: #3a7bd5; }
+.text-input:focus { border-color: var(--input-focus); }
 .text-area {
   width: 100%;
   padding: 10px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.05);
-  color: #e0e0e0;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-primary);
   font-size: 0.9rem;
   outline: none;
   resize: vertical;
   font-family: inherit;
   transition: border-color 0.2s;
 }
-.text-area:focus { border-color: #3a7bd5; }
+.text-area:focus { border-color: var(--input-focus); }
 .char-count {
   display: block;
   text-align: right;
   font-size: 0.75rem;
-  color: #666;
+  color: var(--char-count-color);
   margin-top: 4px;
 }
 .card-wrapper { display: inline-block; }
 .review-card {
   width: 380px;
-  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  background: linear-gradient(145deg, var(--review-card-from), var(--review-card-to));
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 8px 32px var(--card-shadow);
 }
 .card-header {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: var(--card-inner-bg);
+  border-bottom: 1px solid var(--card-inner-border);
 }
 .game-icon {
   font-size: 2.2rem;
@@ -308,14 +308,14 @@ defineExpose({ cardRef })
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.05);
+  background: var(--input-bg);
   border-radius: 12px;
 }
 .game-info { flex: 1; }
-.game-info h2 { font-size: 1rem; color: #e0e0e0; margin-bottom: 2px; }
+.game-info h2 { font-size: 1rem; color: var(--text-primary); margin-bottom: 2px; }
 .card-stars { display: flex; gap: 2px; }
-.star-sm { font-size: 0.9rem; color: #333; }
-.star-sm.filled { color: #ffc107; }
+.star-sm { font-size: 0.9rem; color: var(--review-star-empty); }
+.star-sm.filled { color: var(--star-color); }
 .card-tags {
   display: flex;
   flex-wrap: wrap;
@@ -325,15 +325,15 @@ defineExpose({ cardRef })
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 0.7rem;
-  background: rgba(58,123,213,0.2);
-  color: #6cb4ee;
-  border: 1px solid rgba(58,123,213,0.3);
+  background: var(--tag-bg);
+  color: var(--tag-color);
+  border: 1px solid var(--tag-border);
 }
 .card-body { padding: 16px; }
 .review-content {
   font-size: 0.9rem;
   line-height: 1.6;
-  color: #ccc;
+  color: var(--text-secondary);
   min-height: 40px;
   word-break: break-all;
 }
@@ -344,15 +344,15 @@ defineExpose({ cardRef })
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  background: rgba(255,255,255,0.03);
-  border-top: 1px solid rgba(255,255,255,0.06);
+  background: var(--card-inner-bg);
+  border-top: 1px solid var(--card-inner-border);
 }
 .player-info { display: flex; align-items: center; gap: 10px; }
 .avatar {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  background: linear-gradient(135deg, var(--avatar-from), var(--avatar-to));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -361,9 +361,9 @@ defineExpose({ cardRef })
   color: white;
 }
 .player-detail { display: flex; flex-direction: column; }
-.player-name { font-size: 0.8rem; color: #e0e0e0; font-weight: 500; }
-.play-time { font-size: 0.7rem; color: #666; }
-.platform-badge { font-size: 0.7rem; color: #888; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 8px; }
+.player-name { font-size: 0.8rem; color: var(--text-primary); font-weight: 500; }
+.play-time { font-size: 0.7rem; color: var(--text-muted); }
+.platform-badge { font-size: 0.7rem; color: var(--text-muted); background: var(--input-bg); padding: 4px 10px; border-radius: 8px; }
 
 @media (max-width: 900px) {
   .template-wrapper { flex-direction: column; }

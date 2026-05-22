@@ -156,45 +156,45 @@ defineExpose({ cardRef })
 <style scoped>
 .template-wrapper { display: flex; gap: 30px; }
 .form-section, .preview-section { flex: 1; }
-.preview-title { margin-bottom: 16px; color: #aaa; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+.preview-title { margin-bottom: 16px; color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
 .form-group { margin-bottom: 20px; }
-.form-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #aaa; font-weight: 500; }
+.form-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
 .text-input {
   width: 100%; padding: 10px 14px; border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
-  color: #e0e0e0; font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+  border: 1px solid var(--input-border); background: var(--input-bg);
+  color: var(--text-primary); font-size: 0.9rem; outline: none; transition: border-color 0.2s;
 }
-.text-input:focus { border-color: #3a7bd5; }
+.text-input:focus { border-color: var(--input-focus); }
 .text-input-sm {
   width: 100%; padding: 6px 10px; border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
-  color: #e0e0e0; font-size: 0.8rem; outline: none; transition: border-color 0.2s;
+  border: 1px solid var(--input-border); background: var(--input-bg);
+  color: var(--text-primary); font-size: 0.8rem; outline: none; transition: border-color 0.2s;
 }
-.text-input-sm:focus { border-color: #3a7bd5; }
+.text-input-sm:focus { border-color: var(--input-focus); }
 .text-area {
   width: 100%; padding: 10px 14px; border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
-  color: #e0e0e0; font-size: 0.9rem; outline: none; resize: vertical;
+  border: 1px solid var(--input-border); background: var(--input-bg);
+  color: var(--text-primary); font-size: 0.9rem; outline: none; resize: vertical;
   font-family: inherit; transition: border-color 0.2s;
 }
-.text-area:focus { border-color: #3a7bd5; }
+.text-area:focus { border-color: var(--input-focus); }
 
 .star-rating { display: flex; align-items: center; gap: 4px; }
-.star { font-size: 1.5rem; cursor: pointer; color: #333; transition: all 0.15s; }
-.star.filled { color: #ff9800; text-shadow: 0 0 8px rgba(255,152,0,0.4); }
+.star { font-size: 1.5rem; cursor: pointer; color: var(--guide-star-empty); transition: all 0.15s; }
+.star.filled { color: var(--star-color); text-shadow: 0 0 8px rgba(255,152,0,0.4); }
 .star:hover { transform: scale(1.2); }
-.rating-text { margin-left: 12px; font-size: 0.85rem; color: #ff9800; font-weight: 600; }
+.rating-text { margin-left: 12px; font-size: 0.85rem; color: var(--star-color); font-weight: 600; }
 
 .steps-editor { display: flex; flex-direction: column; gap: 12px; }
-.step-card { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 12px; border: 1px solid rgba(255,255,255,0.06); }
+.step-card { background: var(--card-inner-bg); border-radius: 10px; padding: 12px; border: 1px solid var(--card-inner-border); }
 .step-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.step-num { font-size: 0.75rem; color: #3a7bd5; font-weight: 600; }
+.step-num { font-size: 0.75rem; color: var(--accent-primary); font-weight: 600; }
 .step-textarea { font-size: 0.85rem; }
 .step-meta-row { display: flex; gap: 12px; margin-top: 8px; }
 .step-meta { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.meta-label { font-size: 0.7rem; color: #666; }
-.btn-icon { width: 24px; height: 24px; border-radius: 4px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 0.7rem; }
-.add-step-btn { padding: 10px; border: 1px dashed rgba(255,255,255,0.15); border-radius: 8px; background: transparent; color: #888; cursor: pointer; font-size: 0.8rem; }
+.meta-label { font-size: 0.7rem; color: var(--char-count-color); }
+.btn-icon { width: 24px; height: 24px; border-radius: 4px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.7rem; }
+.add-step-btn { padding: 10px; border: 1px dashed var(--dashed-border); border-radius: 8px; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.8rem; }
 .rewards-grid { display: flex; gap: 12px; }
 .reward-item { flex: 1; display: flex; align-items: center; gap: 6px; }
 .reward-icon { font-size: 1rem; }
@@ -202,53 +202,53 @@ defineExpose({ cardRef })
 .card-wrapper { display: inline-block; }
 .guide-card {
   width: 380px;
-  background: linear-gradient(160deg, #1a1a0a, #2a2008);
+  background: linear-gradient(160deg, var(--guide-card-from), var(--guide-card-to));
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 32px var(--card-shadow);
 }
 .guide-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 16px;
-  background: linear-gradient(90deg, #5d4037, #795548);
+  background: linear-gradient(90deg, var(--guide-header-from), var(--guide-header-to));
 }
 .guide-badge { color: white; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; }
 .guide-diff { display: flex; align-items: center; gap: 3px; }
-.g-star { font-size: 0.8rem; color: #444; }
-.g-star.filled { color: #ff9800; }
-.g-diff-text { font-size: 0.7rem; color: #ff9800; font-weight: 600; margin-left: 4px; }
+.g-star { font-size: 0.8rem; color: var(--guide-star-empty); }
+.g-star.filled { color: var(--star-color); }
+.g-diff-text { font-size: 0.7rem; color: var(--star-color); font-weight: 600; margin-left: 4px; }
 .guide-body { padding: 16px; }
-.guide-title { font-size: 1.1rem; color: #e0e0e0; margin-bottom: 16px; }
+.guide-title { font-size: 1.1rem; color: var(--text-primary); margin-bottom: 16px; }
 .steps-display { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 .step-display-item { display: flex; gap: 12px; }
 .step-display-num {
   width: 26px; height: 26px; border-radius: 50%;
-  background: linear-gradient(135deg, #5d4037, #8d6e63);
+  background: linear-gradient(135deg, var(--guide-step-from), var(--guide-step-to));
   display: flex; align-items: center; justify-content: center;
   font-size: 0.75rem; font-weight: 700; color: white; flex-shrink: 0; margin-top: 2px;
 }
 .step-display-content { flex: 1; }
-.step-display-text { font-size: 0.85rem; color: #ccc; line-height: 1.4; }
+.step-display-text { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; }
 .step-display-meta { display: flex; gap: 12px; margin-top: 4px; }
-.meta-cost { font-size: 0.7rem; color: #ff7043; }
-.meta-reward { font-size: 0.7rem; color: #66bb6a; }
-.total-rewards { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 12px; margin-bottom: 12px; border: 1px solid rgba(255,215,0,0.15); }
-.rewards-title { font-size: 0.8rem; color: #ffc107; font-weight: 600; margin-bottom: 8px; }
+.meta-cost { font-size: 0.7rem; color: var(--cost-color); }
+.meta-reward { font-size: 0.7rem; color: var(--exp-color); }
+.total-rewards { background: var(--card-inner-bg); border-radius: 10px; padding: 12px; margin-bottom: 12px; border: 1px solid var(--gold-bg); }
+.rewards-title { font-size: 0.8rem; color: var(--gold-color); font-weight: 600; margin-bottom: 8px; }
 .rewards-list { display: flex; flex-wrap: wrap; gap: 8px; }
 .reward-badge { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
-.reward-badge.exp { background: rgba(102,187,106,0.15); color: #66bb6a; }
-.reward-badge.gold { background: rgba(255,193,7,0.15); color: #ffc107; }
-.reward-badge.item { background: rgba(33,150,243,0.15); color: #42a5f5; }
+.reward-badge.exp { background: var(--exp-bg); color: var(--exp-color); }
+.reward-badge.gold { background: var(--gold-bg); color: var(--gold-color); }
+.reward-badge.item { background: var(--item-bg); color: var(--item-color); }
 .guide-image { margin-bottom: 12px; border-radius: 8px; overflow: hidden; }
 .guide-image img { width: 100%; display: block; }
-.guide-tip { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; background: rgba(33,150,243,0.08); border-radius: 8px; border: 1px solid rgba(33,150,243,0.15); }
+.guide-tip { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; background: var(--tip-bg); border-radius: 8px; border: 1px solid var(--tip-border); }
 .tip-icon { font-size: 0.9rem; }
-.tip-text { font-size: 0.8rem; color: #90caf9; line-height: 1.4; }
+.tip-text { font-size: 0.8rem; color: var(--tip-color); line-height: 1.4; }
 .guide-footer {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 16px; font-size: 0.65rem; color: #555;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 10px 16px; font-size: 0.65rem; color: var(--footer-text);
+  border-top: 1px solid var(--footer-border);
 }
 
 @media (max-width: 900px) {
