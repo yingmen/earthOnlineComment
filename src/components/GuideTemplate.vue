@@ -205,7 +205,7 @@ defineExpose({ cardRef })
   background: linear-gradient(160deg, var(--guide-card-from), var(--guide-card-to));
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid var(--surface-border);
   box-shadow: 0 8px 32px var(--card-shadow);
 }
 .guide-header {

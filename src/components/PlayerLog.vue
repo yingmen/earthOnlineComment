@@ -228,7 +228,7 @@ defineExpose({ cardRef })
 .bar-bg { height: 10px; background: var(--bar-bg); border-radius: 5px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 5px; transition: width 0.3s; }
 .hp-fill { background: linear-gradient(90deg, var(--hp-from), var(--hp-to)); }
-.mood-fill { background: linear-gradient(90deg, var(--hp-from), var(--star-color), var(--mood-to)); }
+.mood-fill { background: linear-gradient(90deg, var(--mood-from), var(--star-color), var(--mood-to)); }
 .status-num { font-size: 0.7rem; color: var(--text-muted); min-width: 35px; text-align: right; font-weight: 600; }
 .gold-row { display: flex; align-items: center; gap: 8px; padding-top: 4px; }
 .gold-value { font-size: 0.85rem; color: var(--gold-color); font-weight: 700; }
