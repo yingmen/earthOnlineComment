@@ -224,7 +224,7 @@ function generatePlayerLogCopy() {
 |------|------|--------|
 | ❤️ HP | ${hp}/100 | ${'█'.repeat(Math.floor(hp / 10))}${'░'.repeat(10 - Math.floor(hp / 10))} |
 | 😊 心情 | ${mood}/100 | ${'█'.repeat(Math.floor(mood / 10))}${'░'.repeat(10 - Math.floor(mood / 10))} |
-| 🪙 金币 | ${gold} | — |
+| 💰 金币 | ${gold} | — |
 
 ### 📋 今日任务
 
@@ -321,7 +321,7 @@ ${stepsMd}
 | 奖励类型 | 内容 |
 |----------|------|
 | ⭐ 经验值 | ${guide.rewards.exp} |
-| 🪙 金币 | ${guide.rewards.gold} |
+| 💰 金币 | ${guide.rewards.gold} |
 | 🎁 额外 | ${guide.rewards.items} |
 
 ### 💡 温馨提示

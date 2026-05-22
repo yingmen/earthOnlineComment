@@ -2,6 +2,11 @@
   <div class="template-wrapper">
     <div class="form-section">
       <div class="form-group">
+        <label>自定义头像</label>
+        <AvatarUploader v-model="avatarImage" />
+      </div>
+
+      <div class="form-group">
         <label>玩家昵称</label>
         <input v-model="playerName" type="text" class="text-input" placeholder="你的游戏ID" />
       </div>
@@ -12,19 +17,27 @@
       </div>
 
       <div class="form-group">
-        <label>HP 生命值</label>
-        <div class="slider-group">
-          <input type="range" v-model.number="hp" min="0" max="100" class="slider hp-slider" />
+        <label class="slider-label">
+          <span class="slider-label-text">HP 生命值</span>
+          <div class="stepper">
+            <button class="stepper-btn" @click="adjustHp(-1)" :disabled="hp <= 0">−</button>
+            <input type="number" v-model.number="hp" min="0" max="100" class="number-input" />
+            <button class="stepper-btn" @click="adjustHp(1)" :disabled="hp >= 100">+</button>
+          </div>
           <span class="slider-value" :style="{ color: hp > 50 ? '#4caf50' : hp > 25 ? '#ff9800' : '#f44336' }">{{ hp }}/100</span>
-        </div>
+        </label>
       </div>
 
       <div class="form-group">
-        <label>心情值</label>
-        <div class="slider-group">
-          <input type="range" v-model.number="mood" min="0" max="100" class="slider mood-slider" />
+        <label class="slider-label">
+          <span class="slider-label-text">心情值</span>
+          <div class="stepper">
+            <button class="stepper-btn" @click="adjustMood(-1)" :disabled="mood <= 0">−</button>
+            <input type="number" v-model.number="mood" min="0" max="100" class="number-input" />
+            <button class="stepper-btn" @click="adjustMood(1)" :disabled="mood >= 100">+</button>
+          </div>
           <span class="slider-value" :style="{ color: mood > 50 ? '#4caf50' : mood > 25 ? '#ff9800' : '#f44336' }">{{ mood }}/100</span>
-        </div>
+        </label>
       </div>
 
       <div class="form-group">
@@ -61,7 +74,10 @@
       <div class="card-wrapper" ref="cardRef">
         <div class="log-card">
           <div class="log-header">
-            <div class="log-avatar">{{ (playerName || '玩家')[0] }}</div>
+            <div class="log-avatar" v-if="avatarImage">
+              <img :src="avatarImage" class="log-avatar-img" />
+            </div>
+            <div class="log-avatar" v-else>{{ (playerName || '玩家')[0] }}</div>
             <div class="log-player-info">
               <span class="log-player-name">{{ playerName || '冒险者' }}</span>
               <span class="log-level">{{ level || 'Lv.1' }}</span>
@@ -126,6 +142,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import ImageUploader from './ImageUploader.vue'
+import AvatarUploader from './AvatarUploader.vue'
 
 const playerName = ref('')
 const level = ref('Lv.25')
@@ -141,6 +158,7 @@ const tasks = ref([
 const uploadedImage = ref(null)
 const logNote = ref('')
 const cardRef = ref(null)
+const avatarImage = ref(null)
 
 const today = computed(() => {
   const d = new Date()
@@ -155,6 +173,14 @@ function addTask() {
 
 function removeTask(idx) {
   if (tasks.value.length > 1) tasks.value.splice(idx, 1)
+}
+
+function adjustHp(delta) {
+  hp.value = Math.min(100, Math.max(0, hp.value + delta))
+}
+
+function adjustMood(delta) {
+  mood.value = Math.min(100, Math.max(0, mood.value + delta))
 }
 
 defineExpose({ cardRef })
@@ -181,12 +207,139 @@ defineExpose({ cardRef })
 .text-area:focus { border-color: var(--input-focus); }
 .char-count { display: block; text-align: right; font-size: 0.75rem; color: var(--char-count-color); margin-top: 4px; }
 
-.slider-group { display: flex; align-items: center; gap: 12px; }
-.slider { flex: 1; height: 6px; -webkit-appearance: none; appearance: none; border-radius: 3px; outline: none; }
-.slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: white; cursor: pointer; border: 2px solid var(--accent-primary); }
-.hp-slider { background: linear-gradient(90deg, var(--hp-from), var(--star-color), var(--hp-to)); }
-.mood-slider { background: linear-gradient(90deg, var(--hp-from), var(--star-color), var(--hp-to)); }
-.slider-value { font-size: 0.85rem; font-weight: 700; min-width: 45px; }
+.slider-label {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+.slider-label-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.slider-label .slider-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 45px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.stepper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.stepper .number-input {
+  width: 48px;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  padding: 4px 2px;
+}
+.stepper-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
+}
+.stepper-btn:first-child { border-radius: 6px 0 0 6px; }
+.stepper-btn:last-child { border-radius: 0 6px 6px 0; }
+.stepper-btn:hover { background: var(--card-inner-bg); }
+.stepper-btn:active { background: var(--bar-bg); }
+.stepper-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.number-input {
+  width: 56px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+  -moz-appearance: textfield;
+}
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.number-input:focus { border-color: var(--input-focus); }
+
+.slider {
+  flex: 1;
+  max-width: 220px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+}
+.slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 2px solid var(--accent-primary);
+  margin-top: -5px;
+}
+.slider::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: 2px solid var(--accent-primary);
+}
+
+.hp-slider {
+  height: 24px;
+}
+.hp-slider::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--hp-from), var(--hp-to));
+  margin-top: 9px;
+}
+.hp-slider::-moz-range-track { background: linear-gradient(90deg, var(--hp-from), var(--hp-to)); }
+
+.mood-slider {
+  height: 20px;
+}
+.mood-slider::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--mood-from), var(--star-color), var(--mood-to));
+  margin-top: 7px;
+}
+.mood-slider::-moz-range-track { background: linear-gradient(90deg, var(--mood-from), var(--star-color), var(--mood-to)); }
+.slider-value { font-size: 0.85rem; font-weight: 700; }
 
 .task-list-editor { display: flex; flex-direction: column; gap: 8px; }
 .task-row { display: flex; align-items: center; gap: 8px; }
@@ -215,6 +368,13 @@ defineExpose({ cardRef })
   background: linear-gradient(135deg, var(--log-avatar-from), var(--log-avatar-to));
   display: flex; align-items: center; justify-content: center;
   font-size: 1rem; font-weight: 700; color: white;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.log-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .log-player-info { display: flex; flex-direction: column; flex: 1; }
 .log-player-name { font-size: 0.9rem; color: var(--text-primary); font-weight: 600; }
@@ -256,6 +416,9 @@ defineExpose({ cardRef })
 
 @media (max-width: 900px) {
   .template-wrapper { flex-direction: column; }
+  .card-wrapper { width: 100%; }
   .log-card { width: 100%; }
+  .slider-label { flex-wrap: wrap; gap: 8px; }
+  .slider-label-text { min-width: 60px; }
 }
 </style>

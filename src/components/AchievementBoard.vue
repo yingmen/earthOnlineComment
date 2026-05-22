@@ -2,6 +2,11 @@
   <div class="template-wrapper">
     <div class="form-section">
       <div class="form-group">
+        <label>自定义头像</label>
+        <AvatarUploader v-model="avatarImage" />
+      </div>
+
+      <div class="form-group">
         <label>玩家昵称</label>
         <input v-model="playerName" type="text" class="text-input" placeholder="你的游戏ID" />
       </div>
@@ -66,7 +71,10 @@
       <div class="card-wrapper" ref="cardRef">
         <div class="achievement-card">
           <div class="ach-card-header">
-            <div class="ach-avatar">{{ (playerName || '玩家')[0] }}</div>
+            <div class="ach-avatar" v-if="avatarImage">
+              <img :src="avatarImage" class="ach-avatar-img" />
+            </div>
+            <div class="ach-avatar" v-else>{{ (playerName || '玩家')[0] }}</div>
             <div class="ach-player-info">
               <span class="ach-player-name">{{ playerName || '冒险者' }}</span>
               <div class="ach-stars">
@@ -155,6 +163,7 @@ const level = ref(persisted.value.level)
 const achievements = ref(persisted.value.achievements.map(a => ({ ...a })))
 
 import { watch } from 'vue'
+import AvatarUploader from './AvatarUploader.vue'
 watch([playerName, level, achievements], () => {
   persisted.value = {
     playerName: playerName.value,
@@ -174,6 +183,7 @@ const progressPercent = computed(() => {
 })
 
 const cardRef = ref(null)
+const avatarImage = ref(null)
 
 function addAchievement() {
   achievements.value.push({
@@ -297,6 +307,13 @@ defineExpose({ cardRef })
   background: linear-gradient(135deg, var(--ach-avatar-from), var(--ach-avatar-to));
   display: flex; align-items: center; justify-content: center;
   font-size: 1.1rem; font-weight: 700; color: white;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.ach-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .ach-player-info { display: flex; flex-direction: column; flex: 1; }
 .ach-player-name { font-size: 0.95rem; color: var(--text-primary); font-weight: 600; }

@@ -2,6 +2,11 @@
   <div class="template-wrapper">
     <div class="form-section">
       <div class="form-group">
+        <label>自定义头像</label>
+        <AvatarUploader v-model="avatarImage" />
+      </div>
+
+      <div class="form-group">
         <label>选择热梗标签</label>
         <div class="tag-manager">
           <div class="tag-input-row">
@@ -73,7 +78,10 @@
 
           <div class="card-footer">
             <div class="player-info">
-              <div class="avatar">{{ (nickname || '匿名')[0] }}</div>
+              <div class="avatar" v-if="avatarImage">
+                <img :src="avatarImage" class="avatar-img" />
+              </div>
+              <div class="avatar" v-else>{{ (nickname || '匿名')[0] }}</div>
               <div class="player-detail">
                 <span class="player-name">{{ nickname || '匿名玩家' }}</span>
                 <span class="play-time">{{ playTime || '已游玩 9125 天' }}</span>
@@ -92,6 +100,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import ImageUploader from './ImageUploader.vue'
+import AvatarUploader from './AvatarUploader.vue'
 
 const hotTags = ref([
   '强制登录', '不能存档', '零氪生存', '随机出生点', '无新手教程',
@@ -107,6 +116,7 @@ const playTime = ref('已游玩 9125 天')
 const nickname = ref('')
 const uploadedImage = ref(null)
 const cardRef = ref(null)
+const avatarImage = ref(null)
 
 function toggleTag(tag) {
   const index = selectedTags.value.indexOf(tag)
@@ -359,6 +369,13 @@ defineExpose({ cardRef })
   font-size: 0.85rem;
   font-weight: 600;
   color: white;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .player-detail { display: flex; flex-direction: column; }
 .player-name { font-size: 0.8rem; color: var(--text-primary); font-weight: 500; }
